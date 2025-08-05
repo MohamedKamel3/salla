@@ -35,7 +35,7 @@
 
 ---
 
-##  How To Use
+##  How To Use  🚀
 
 Unzip the project and run `main.dart` using your Flutter IDE ❤️
 
