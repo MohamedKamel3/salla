@@ -49,7 +49,8 @@ Unzip the project and run `main.dart` using your Flutter IDE ❤️
 
 ---
 
-## 🛠️ Technologies Used
+##  Technologies Used  
+🛠️
 
 **Framework:**  
 - [Flutter](https://flutter.dev/) — for cross-platform mobile app development
@@ -62,7 +63,8 @@ Unzip the project and run `main.dart` using your Flutter IDE ❤️
 
 ---
 
-## 📦 Packages Used
+##  Packages Used  
+📦
 
 | Package Name | Description |
 |--------------|-------------|
@@ -72,7 +74,8 @@ Unzip the project and run `main.dart` using your Flutter IDE ❤️
 
 ---
 
-## 📚 Localization Setup
+##  Localization Setup  
+📚
 
 ```yaml
 dependencies:
