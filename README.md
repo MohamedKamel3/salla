@@ -12,7 +12,7 @@
 
 ---
 
-## 🧩 Key Features
+##  Key Features  🧩
 
 * **Multi-language Support:** The app supports both **Arabic** (RTL) and **English** (LTR), making it accessible to a wide user base.
 
