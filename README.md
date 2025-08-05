@@ -8,7 +8,8 @@
   <a href="#support">Support</a>
 </p>
 
-<img src="poster.png" alt="Main" />
+<img src="assets/images/arabic.png" alt="Arabic" />
+<img src="assets/images/english.png" alt="english" />
 
 ---
 
