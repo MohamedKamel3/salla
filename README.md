@@ -4,7 +4,7 @@
 <p align="center">
   <a href="#key-features">Key Features</a> •
   <a href="#how-to-use">How To Use</a> •
-  <a href="#flutter project setup instructions">Instructions</a> •
+  <a href="#flutter-project-setup-instructions">Instructions</a> •
   <a href="#technologies-used">Technologies Used</a> •
   <a href="#support">Support</a>
 </p>
