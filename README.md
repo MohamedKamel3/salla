@@ -72,17 +72,6 @@ Unzip the project and run `main.dart` using your Flutter IDE ❤️
 | [`google_fonts`](https://pub.dev/packages/google_fonts) | Adds modern, clean fonts for Arabic & English |
 | [`flutter_localizations`](https://api.flutter.dev/flutter/flutter_localizations/flutter_localizations-library.html) | Official localization support |
 
----
-
-##  Localization Setup  
-📚
-
-```yaml
-dependencies:
-  easy_localization: ^3.0.1
-
----
-
 ---------------------------------------------------
 ##  Support
 
