@@ -19,6 +19,7 @@ class _HomePageState extends State<HomePage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
+    //  all products are translated using the 'tr()' method from easy_localization
     products = [
       ProductModel(
         name: 'toy'.tr(),
