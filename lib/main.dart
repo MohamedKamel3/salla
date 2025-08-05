@@ -1,11 +1,23 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:store_app/pages/home_page.dart';
 import 'package:store_app/pages/sign_in_page.dart';
 import 'package:store_app/pages/sign_up_page.dart';
 import 'package:store_app/pages/welcome_page.dart';
 
-void main() {
-  runApp(const StoreApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+
+  runApp(
+    EasyLocalization(
+      supportedLocales: [Locale('en', 'US'), Locale('ar', 'EG')],
+      path: 'assets/translation',
+      fallbackLocale: Locale('en', 'US'),
+      saveLocale: true,
+      child: StoreApp(),
+    ),
+  );
 }
 
 class StoreApp extends StatelessWidget {
@@ -14,6 +26,9 @@ class StoreApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       debugShowCheckedModeBanner: false,
       initialRoute: WelcomePage.id,
       onGenerateRoute: (settings) {

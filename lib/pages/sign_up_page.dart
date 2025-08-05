@@ -1,18 +1,32 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:store_app/pages/home_page.dart';
+import 'package:store_app/widgets/custom_elevated_button.dart';
 import 'package:store_app/widgets/custom_text_form_field.dart';
 import 'package:store_app/widgets/welcome_background.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
   SignUpPage({super.key});
   static const String id = "signUpPage";
 
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   final TextEditingController emailController = TextEditingController();
+
   final TextEditingController passwordController = TextEditingController();
+
   final TextEditingController fullNameController = TextEditingController();
+
   final TextEditingController confirmPasswordController =
       TextEditingController();
+
+  bool isPasswordVisible = false;
+  bool isConfirmPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +45,7 @@ class SignUpPage extends StatelessWidget {
                   spacing: 20,
                   children: [
                     Text(
-                      "Create Account",
+                      "sign_up1".tr(),
                       style: TextStyle(
                         fontSize: 36,
                         fontWeight: FontWeight.bold,
@@ -39,69 +53,90 @@ class SignUpPage extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "so you can explore all the existing jobs",
+                      "sign_up2".tr(),
                       style: TextStyle(fontSize: 16, color: Colors.black),
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(height: 40),
                     customTextFormField(
-                      label: "Full Name",
+                      label: "full_name_hint".tr(),
                       controller: fullNameController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter your full name';
+                          return 'full_name_null_error'.tr();
                         }
                         if (value.length < 3) {
-                          return 'Full name must be at least 3 characters';
+                          return 'full_name_short_error'.tr();
                         }
                         if (!RegExp(r'^[a-zA-Z\s]+$').hasMatch(value)) {
-                          return 'Full name can only contain letters and spaces';
+                          return 'full_name_invalid_error'.tr();
                         }
-                        if (value.length > 50) {
-                          return 'Full name cannot exceed 50 characters';
-                        }
-
                         return null;
-                      }, // Add validation for full name
+                      },
                     ),
                     customTextFormField(
-                      label: "Email",
+                      label: "email_hint".tr(),
                       controller: emailController,
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter your email';
+                          return 'email_null_error'.tr();
                         }
                         if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                          return 'Please enter a valid email';
+                          return 'email_invalid_error'.tr();
                         }
                         return null;
                       },
                     ),
                     customTextFormField(
-                      label: "Password",
-                      obscureText: true,
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            isPasswordVisible = !isPasswordVisible;
+                          });
+                        },
+                        icon: Icon(
+                          isPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                      ),
+                      label: "password_hint".tr(),
+                      obscureText: isPasswordVisible,
                       controller: passwordController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter your password';
+                          return 'password_null_error'.tr();
                         }
                         if (value.length < 6) {
-                          return 'Password must be at least 6 characters';
+                          return 'password_short_error'.tr();
                         }
                         return null;
                       },
                     ),
                     customTextFormField(
-                      label: "Confirm Password",
-                      obscureText: true,
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            isConfirmPasswordVisible =
+                                !isConfirmPasswordVisible;
+                          });
+                        },
+                        icon: Icon(
+                          isConfirmPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                      ),
+                      label: "confirm_password_hint".tr(),
+                      obscureText: isConfirmPasswordVisible,
                       controller: confirmPasswordController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please confirm your password';
+                          return 'confirm_password_null_error'.tr();
                         }
                         if (value != passwordController.text) {
-                          return 'Passwords do not match';
+                          return 'confirm_password_error'.tr();
                         }
                         return null;
                       },
@@ -109,29 +144,13 @@ class SignUpPage extends StatelessWidget {
                     SizedBox(height: 10),
                     SizedBox(
                       width: double.infinity,
-                      child: ElevatedButton(
+                      child: customElevatedButton(
+                        text: "sign_up_button".tr(),
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                            // Handle sign up logic here
                             Navigator.pushNamed(context, HomePage.id);
                           }
                         },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff1f41bb),
-                          padding: EdgeInsets.symmetric(vertical: 14),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          elevation: 4,
-                        ),
-                        child: Text(
-                          "Sign Up",
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
                       ),
                     ),
                     TextButton(
@@ -139,7 +158,7 @@ class SignUpPage extends StatelessWidget {
                         Navigator.pushReplacementNamed(context, "signInPage");
                       },
                       child: Text(
-                        "Already have an account? Sign In",
+                        "sign_up_text_button".tr(),
                         style: TextStyle(fontSize: 16, color: Colors.black87),
                       ),
                     ),

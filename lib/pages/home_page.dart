@@ -1,54 +1,101 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:store_app/models/product_model.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   HomePage({super.key});
   static const String id = "homePage";
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final PageController _pageController = PageController(viewportFraction: 0.8);
 
-  List<ProductModel> products = [
-    ProductModel(name: 'toy', price: 29.99, imageUrl: 'assets/images/1.png'),
-    ProductModel(name: 'date', price: 49.99, imageUrl: 'assets/images/2.png'),
-    ProductModel(name: 'cream', price: 19.99, imageUrl: 'assets/images/3.png'),
-    ProductModel(
-      name: 'avocado',
-      price: 39.99,
-      imageUrl: 'assets/images/4.png',
-    ),
-    ProductModel(name: 'cream2', price: 59.99, imageUrl: 'assets/images/5.png'),
-    ProductModel(name: 'toy', price: 29.99, imageUrl: 'assets/images/1.png'),
-    ProductModel(name: 'date', price: 49.99, imageUrl: 'assets/images/2.png'),
-    ProductModel(name: 'cream', price: 19.99, imageUrl: 'assets/images/3.png'),
-    ProductModel(
-      name: 'avocado',
-      price: 39.99,
-      imageUrl: 'assets/images/4.png',
-    ),
-    ProductModel(name: 'cream2', price: 59.99, imageUrl: 'assets/images/5.png'),
-    ProductModel(name: 'toy', price: 29.99, imageUrl: 'assets/images/1.png'),
-    ProductModel(name: 'date', price: 49.99, imageUrl: 'assets/images/2.png'),
-    ProductModel(name: 'cream', price: 19.99, imageUrl: 'assets/images/3.png'),
-    ProductModel(
-      name: 'avocado',
-      price: 39.99,
-      imageUrl: 'assets/images/4.png',
-    ),
-    ProductModel(name: 'toy', price: 29.99, imageUrl: 'assets/images/1.png'),
-    ProductModel(name: 'cream2', price: 59.99, imageUrl: 'assets/images/5.png'),
-  ];
+  late List<ProductModel> products;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    products = [
+      ProductModel(
+        name: 'toy'.tr(),
+        price: 29.99,
+        imageUrl: 'assets/images/1.png',
+      ),
+      ProductModel(
+        name: 'date'.tr(),
+        price: 49.99,
+        imageUrl: 'assets/images/2.png',
+      ),
+      ProductModel(
+        name: 'cream'.tr(),
+        price: 19.99,
+        imageUrl: 'assets/images/3.png',
+      ),
+      ProductModel(
+        name: 'avocado'.tr(),
+        price: 39.99,
+        imageUrl: 'assets/images/4.png',
+      ),
+      ProductModel(
+        name: 'cream2'.tr(),
+        price: 59.99,
+        imageUrl: 'assets/images/5.png',
+      ),
+      ProductModel(
+        name: 'toy'.tr(),
+        price: 29.99,
+        imageUrl: 'assets/images/1.png',
+      ),
+      ProductModel(
+        name: 'date'.tr(),
+        price: 49.99,
+        imageUrl: 'assets/images/2.png',
+      ),
+      ProductModel(
+        name: 'cream'.tr(),
+        price: 19.99,
+        imageUrl: 'assets/images/3.png',
+      ),
+      ProductModel(
+        name: 'avocado'.tr(),
+        price: 39.99,
+        imageUrl: 'assets/images/4.png',
+      ),
+      ProductModel(
+        name: 'cream2'.tr(),
+        price: 59.99,
+        imageUrl: 'assets/images/5.png',
+      ),
+      ProductModel(
+        name: 'toy'.tr(),
+        price: 29.99,
+        imageUrl: 'assets/images/1.png',
+      ),
+      ProductModel(
+        name: 'date'.tr(),
+        price: 49.99,
+        imageUrl: 'assets/images/2.png',
+      ),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text(
-          'Our products',
+        title: Text(
+          'home_page_title',
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
-        ),
+        ).tr(),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -105,8 +152,8 @@ class HomePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            const Text(
-              'Products',
+            Text(
+              'products_section_title'.tr(),
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -133,7 +180,7 @@ class HomePage extends StatelessWidget {
                       Image.asset(product.imageUrl, height: 100, width: 100),
                       const SizedBox(height: 10),
                       Text(
-                        product.name,
+                        product.name.tr(),
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -154,7 +201,9 @@ class HomePage extends StatelessWidget {
                             icon: const Icon(Icons.add_shopping_cart),
                             onPressed: () {
                               SnackBar snackBar = SnackBar(
-                                content: Text('${product.name} added to cart!'),
+                                content: Text(
+                                  'add_to_cart'.tr(args: [product.name]),
+                                ),
                               );
                               ScaffoldMessenger.of(
                                 context,
@@ -171,8 +220,8 @@ class HomePage extends StatelessWidget {
               }).toList(),
             ),
             const SizedBox(height: 20),
-            const Text(
-              '🔥 Hot Offers',
+            Text(
+              'hot_deals_section_title'.tr(),
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -207,7 +256,7 @@ class HomePage extends StatelessWidget {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(8),
                         child: Image.asset(
-                          'assets/images/${(index % 5) + 1}.png', // صور متنوعة
+                          products[index].imageUrl,
                           height: 60,
                           width: 60,
                           fit: BoxFit.cover,
@@ -216,7 +265,7 @@ class HomePage extends StatelessWidget {
                       const SizedBox(width: 12),
                       Expanded(
                         child: Text(
-                          'Special offer on ${['toys', 'dates', 'cream', 'avocados', 'skincare'][index % 5]}! Limited time only!',
+                          'hot_deals_subtitle'.tr(args: [products[index].name]),
                           style: const TextStyle(fontSize: 16),
                         ),
                       ),

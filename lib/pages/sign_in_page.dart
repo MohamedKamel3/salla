@@ -1,14 +1,28 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:store_app/pages/home_page.dart';
+import 'package:store_app/pages/sign_up_page.dart';
+import 'package:store_app/widgets/custom_elevated_button.dart';
 import 'package:store_app/widgets/custom_text_form_field.dart';
 import 'package:store_app/widgets/welcome_background.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
   SignInPage({super.key});
   static const String id = "signInPage";
+
+  @override
+  State<SignInPage> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   final TextEditingController emailController = TextEditingController();
+
   final TextEditingController passwordController = TextEditingController();
+
+  bool isPasswordVisible = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,11 +36,11 @@ class SignInPage extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   spacing: 20,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Login Here",
+                      "sign_in1".tr(), // Login Here
                       style: TextStyle(
                         fontSize: 36,
                         fontWeight: FontWeight.bold,
@@ -34,7 +48,8 @@ class SignInPage extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "Welcome back you’ve\n      been missed!",
+                      "sign_in2".tr(), // Welcome back...
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 24,
                         color: Colors.black,
@@ -43,29 +58,41 @@ class SignInPage extends StatelessWidget {
                     ),
                     SizedBox(height: 45),
                     customTextFormField(
-                      label: "Email",
+                      label: "email_hint".tr(),
                       controller: emailController,
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter your email';
+                          return "email_null_error".tr();
                         }
                         if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                          return 'Please enter a valid email';
+                          return "email_invalid_error".tr();
                         }
                         return null;
                       },
                     ),
                     customTextFormField(
-                      label: "Password",
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          isPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isPasswordVisible = !isPasswordVisible;
+                          });
+                        },
+                      ),
+                      label: "password_hint".tr(),
                       controller: passwordController,
-                      obscureText: true,
+                      obscureText: isPasswordVisible,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter your password';
+                          return "password_null_error".tr();
                         }
                         if (value.length < 6) {
-                          return 'Password must be at least 6 characters';
+                          return "password_short_error".tr();
                         }
                         return null;
                       },
@@ -74,45 +101,29 @@ class SignInPage extends StatelessWidget {
                       alignment: Alignment.centerRight,
                       child: TextButton(
                         onPressed: () {},
-                        child: Text("Forgot Password?"),
+                        child: Text("forgot_password".tr()),
                       ),
                     ),
                     SizedBox(
                       width: double.infinity,
-                      child: ElevatedButton(
+                      child: customElevatedButton(
+                        text: "login_button".tr(),
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                            // Handle sign-in logic
                             Navigator.pushReplacementNamed(
                               context,
                               HomePage.id,
                             );
                           }
                         },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff1f41bb),
-                          padding: EdgeInsets.symmetric(vertical: 14),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          elevation: 4,
-                        ),
-                        child: Text(
-                          "Login",
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
                       ),
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.pushReplacementNamed(context, "signUpPage");
+                        Navigator.pushReplacementNamed(context, SignUpPage.id);
                       },
                       child: Text(
-                        "Don't have an account? Sign Up",
+                        "sign_up_text_button".tr(),
                         style: TextStyle(fontSize: 16, color: Colors.black87),
                       ),
                     ),
